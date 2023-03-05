@@ -10,6 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Path("/item")
@@ -21,6 +22,12 @@ public class ItemController {
     @GET
     public Response get() {
         return itemService.get();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response get(@PathParam("id") Long id){
+        return itemService.get(id);
     }
 
     @POST

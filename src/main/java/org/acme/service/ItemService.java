@@ -5,6 +5,7 @@ import utils.ResponseUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,6 +16,14 @@ public class ItemService {
     public Response get(){
         List<Item> item = Item.findAll().list();
         return ResponseUtils.createResponse(true,"200",item);
+    }
+
+    public Response get(@PathParam("id") Long id){
+        List<Item> peserta = Item.find("id",id).list();
+        if(peserta.isEmpty() ){
+            return ResponseUtils.createResponse(false, "400","peserta id "+!peserta.isEmpty());
+        }
+        return ResponseUtils.createResponse(true, "200", peserta);
     }
 
     @Transactional
